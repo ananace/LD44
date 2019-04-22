@@ -16,10 +16,17 @@ endif ()
 
 set(headers
     Application.hpp
+    IState.hpp
+
+    States/DummyState.hpp
+    States/GameState.hpp
 )
 
 set(sources
     Application.cpp
+
+    States/DummyState.cpp
+    States/GameState.cpp
 
     main.cpp
 )

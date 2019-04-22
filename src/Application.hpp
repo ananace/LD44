@@ -1,5 +1,12 @@
 #pragma once
 
+#include "IState.hpp"
+
+#include <SFML/Graphics/Font.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
+
+#include <memory>
+
 class Application
 {
 public:
@@ -11,8 +18,14 @@ public:
 
     static Application& getApplication();
 
+    sf::Font& getDefaultFont() const;
+
     void run();
 
 private:
     static Application* s_singleton;
+
+    std::unique_ptr<IState> m_curState;
+    sf::RenderWindow m_window;
+    sf::View m_uiView;
 };
