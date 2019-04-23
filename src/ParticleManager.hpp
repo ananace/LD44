@@ -1,5 +1,6 @@
 #pragma once
 
+#include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Vertex.hpp>
 #include <deque>
 
@@ -16,8 +17,13 @@ public:
 private:
     struct Particle
     {
-        float Lifetime;
+        bool Above;
+        float Lifetime, Angle, RotVel;
+        sf::IntRect TexCoords;
+        sf::Vector2f Velocity;
+        sf::Vertex Vertex;
     };
 
+    sf::Texture m_particleSheet;
     std::deque<Particle> m_particles;
 };
