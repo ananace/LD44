@@ -17,6 +17,7 @@ endif ()
 set(headers
     Application.hpp
     IState.hpp
+    ParticleManager.hpp
 
     States/DummyState.hpp
     States/GameState.hpp
@@ -24,6 +25,7 @@ set(headers
 
 set(sources
     Application.cpp
+    ParticleManager.cpp
 
     States/DummyState.cpp
     States/GameState.cpp

@@ -112,11 +112,15 @@ void Application::run()
             }
         }
 
-        m_curState->update(std::chrono::duration_cast<dt_seconds>(dt).count());
+        float f_dt = std::chrono::duration_cast<dt_seconds>(dt).count();
+        m_curState->update(f_dt);
+        m_particles.update(f_dt);
 
         m_window.clear(sf::Color::Black);
 
+        m_particles.drawBelow(m_window);
         m_curState->draw(m_window);
+        m_particles.drawAbove(m_window);
 
         m_window.setView(m_uiView);
 
