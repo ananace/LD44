@@ -20,6 +20,10 @@ public:
 
     sf::Font& getDefaultFont() const;
 
+    IState& getCurState();
+    const IState& getCurState() const;
+    void setCurState(IState* aState);
+
     void run();
 
 private:

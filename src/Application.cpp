@@ -14,9 +14,12 @@ typedef std::chrono::duration<float> dt_seconds;
 Application* Application::s_singleton = nullptr;
 
 Application::Application()
-    : m_curState(new States::DummyState())
 {
+    if (s_singleton)
+        throw std::runtime_error("Multiple Application instances");
     s_singleton = this;
+
+    setCurState(new States::DummyState());
 }
 
 Application::~Application()
@@ -52,6 +55,20 @@ sf::Font& Application::getDefaultFont() const
     return s_defaultFont;
 }
 
+IState& Application::getCurState()
+{
+    return *m_curState;
+}
+const IState& Application::getCurState() const
+{
+    return *m_curState;
+}
+void Application::setCurState(IState* aState)
+{
+    aState->m_app = this;
+    m_curState.reset(aState);
+}
+
 void Application::run()
 {
     time_point start = chrono_clock::now(),
@@ -80,7 +97,7 @@ void Application::run()
 
         while (m_window.pollEvent(ev))
         {
-            m_curState->HandleEvent(ev);
+            m_curState->handleEvent(ev);
 
             switch (ev.type)
             {
@@ -95,15 +112,15 @@ void Application::run()
             }
         }
 
-        m_curState->Update(std::chrono::duration_cast<dt_seconds>(dt).count());
+        m_curState->update(std::chrono::duration_cast<dt_seconds>(dt).count());
 
         m_window.clear(sf::Color::Black);
 
-        m_curState->Draw(m_window);
+        m_curState->draw(m_window);
 
         m_window.setView(m_uiView);
 
-        m_curState->DrawUi(m_window);
+        m_curState->drawUi(m_window);
 
         char fpsCount[32];
         snprintf(fpsCount, 32, "FPS: %d", realFPS);

@@ -4,16 +4,16 @@
 
 using States::DummyState;
 
-void DummyState::HandleEvent(const sf::Event& aEvent)
+void DummyState::handleEvent(const sf::Event& aEvent)
 {
 }
-void DummyState::Update(float aDt)
+void DummyState::update(float aDt)
 {
 }
-void DummyState::Draw(sf::RenderTarget& aTarget)
+void DummyState::draw(sf::RenderTarget& aTarget)
 {
     aTarget.clear(sf::Color::White);
 }
-void DummyState::DrawUi(sf::RenderTarget& aTarget)
+void DummyState::drawUi(sf::RenderTarget& aTarget)
 {
 }
