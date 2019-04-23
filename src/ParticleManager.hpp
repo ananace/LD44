@@ -18,7 +18,7 @@ private:
     struct Particle
     {
         bool Above;
-        float Lifetime, Angle, RotVel;
+        float Lifetime, Angle, RotVel, Friction;
         sf::IntRect TexCoords;
         sf::Vector2f Velocity;
         sf::Vertex Vertex;

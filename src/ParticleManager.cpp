@@ -13,6 +13,7 @@ void ParticleManager::update(float aDt)
     {
         particle.Lifetime -= aDt;
         particle.Vertex.position += particle.Velocity * aDt;
+        particle.Velocity -= particle.Velocity * particle.Friction * aDt;
         particle.Angle += particle.RotVel * aDt;
     }
 
