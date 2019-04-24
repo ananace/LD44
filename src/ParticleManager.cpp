@@ -31,6 +31,17 @@ inline void _setupQuad(const ParticleManager::Particle& particle, sf::Vertex qua
     quad[4].texCoords = sf::Vector2f(particle.TexCoords.left, particle.TexCoords.top);
 }
 
+ParticleManager::ParticleManager()
+{
+    // TODO: Load spritesheet
+}
+
+ParticleManager::Particle& ParticleManager::emit(const Particle& aTemplate)
+{
+    m_particles.emplace_back(aTemplate);
+    return m_particles.back();
+}
+
 void ParticleManager::update(float aDt)
 {
     for (auto& particle : m_particles)

@@ -18,6 +18,7 @@ set(headers
     Application.hpp
     IState.hpp
     ParticleManager.hpp
+    Particles.hpp
     Util.hpp
 
     States/DummyState.hpp

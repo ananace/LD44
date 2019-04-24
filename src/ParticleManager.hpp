@@ -18,6 +18,14 @@ public:
         sf::Vertex Vertex;
     };
 
+    ParticleManager();
+    ParticleManager(const ParticleManager&) = delete;
+    ~ParticleManager() = default;
+
+    ParticleManager& operator=(const ParticleManager&) = delete;
+
+    Particle& emit(const Particle& aTemplate = {});
+
     void update(float aDt);
 
     void drawAbove(sf::RenderTarget& aTarget);
