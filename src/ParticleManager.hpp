@@ -9,12 +9,6 @@ namespace sf { class RenderTarget; }
 class ParticleManager
 {
 public:
-    void update(float aDt);
-
-    void drawAbove(sf::RenderTarget& aTarget);
-    void drawBelow(sf::RenderTarget& aTarget);
-
-private:
     struct Particle
     {
         bool Above;
@@ -24,6 +18,12 @@ private:
         sf::Vertex Vertex;
     };
 
+    void update(float aDt);
+
+    void drawAbove(sf::RenderTarget& aTarget);
+    void drawBelow(sf::RenderTarget& aTarget);
+
+private:
     sf::Texture m_particleSheet;
     std::deque<Particle> m_particles;
 };
