@@ -27,7 +27,7 @@ void ParticleManager::drawAbove(sf::RenderTarget& aTarget)
     states.texture = &m_particleSheet;
 
     sf::Vector2f axises, size;
-    sf::Vertex quad[4];
+    sf::Vertex quad[5];
 
     for (auto& particle : m_particles)
     {
@@ -51,8 +51,11 @@ void ParticleManager::drawAbove(sf::RenderTarget& aTarget)
         quad[3].color = particle.Vertex.color;
         quad[3].position = particle.Vertex.position + axises * sf::Vector2f(-0.5, 0.5) * size;
         quad[3].texCoords = sf::Vector2f(particle.TexCoords.left, particle.TexCoords.top + particle.TexCoords.height);
+        quad[4].color = particle.Vertex.color;
+        quad[4].position = particle.Vertex.position + axises * sf::Vector2f(-0.5, -0.5) * size;
+        quad[4].texCoords = sf::Vector2f(particle.TexCoords.left, particle.TexCoords.top);
 
-        aTarget.draw(quad, 4, sf::TriangleStrip, states);
+        aTarget.draw(quad, 5, sf::TriangleStrip, states);
     }
 }
 void ParticleManager::drawBelow(sf::RenderTarget& aTarget)
