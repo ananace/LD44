@@ -81,6 +81,7 @@ void Application::run()
 
     m_window.create(sf::VideoMode(800, 600), "LD44");
     m_window.setFramerateLimit(150);
+    m_uiView = m_window.getDefaultView();
 
     while (m_window.isOpen())
     {
@@ -116,15 +117,17 @@ void Application::run()
         m_curState->update(f_dt);
         m_particles.update(f_dt);
 
-        m_window.clear(sf::Color::Black);
+        m_curState->preDraw(m_window);
 
         m_particles.drawBelow(m_window);
+
         m_curState->draw(m_window);
+
         m_particles.drawAbove(m_window);
 
         m_window.setView(m_uiView);
 
-        m_curState->drawUi(m_window);
+        m_curState->postDraw(m_window);
 
         char fpsCount[32];
         snprintf(fpsCount, 32, "FPS: %d", realFPS);

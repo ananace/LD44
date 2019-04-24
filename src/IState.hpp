@@ -8,8 +8,9 @@ class IState
 public:
     virtual void handleEvent(const sf::Event& aEvent) = 0;
     virtual void update(float aDt) = 0;
+    virtual void preDraw(sf::RenderTarget& aTarget) = 0;
     virtual void draw(sf::RenderTarget& aTarget) = 0;
-    virtual void drawUi(sf::RenderTarget& aTarget) = 0;
+    virtual void postDraw(sf::RenderTarget& aTarget) = 0;
 
 protected:
     Application& getApplication() const { return *m_app; }

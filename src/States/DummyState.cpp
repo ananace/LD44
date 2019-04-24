@@ -12,8 +12,11 @@ void DummyState::update(float aDt)
 }
 void DummyState::draw(sf::RenderTarget& aTarget)
 {
-    aTarget.clear(sf::Color::White);
 }
-void DummyState::drawUi(sf::RenderTarget& aTarget)
+void DummyState::postDraw(sf::RenderTarget& aTarget)
 {
+}
+void DummyState::preDraw(sf::RenderTarget& aTarget)
+{
+    aTarget.clear(sf::Color::White);
 }
