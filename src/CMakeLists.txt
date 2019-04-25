@@ -28,6 +28,7 @@ set(headers
 set(sources
     Application.cpp
     ParticleManager.cpp
+    Util.cpp
 
     States/DummyState.cpp
     States/GameState.cpp
