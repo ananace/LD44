@@ -25,6 +25,8 @@ public:
     const IState& getCurState() const;
     void setCurState(IState* aState);
 
+    ParticleManager& getParticleManager();
+
     void run();
 
 private:

@@ -58,8 +58,8 @@ void ParticleManager::update(float aDt)
 
 void ParticleManager::drawAbove(sf::RenderTarget& aTarget)
 {
-    sf::RenderStates states(aTarget.getView().getTransform());
-    states.texture = &m_particleSheet;
+    // sf::RenderStates states(aTarget.getView().getTransform());
+    // states.texture = &m_particleSheet;
 
     sf::Vector2f axises, size;
     sf::Vertex quad[5];
@@ -70,13 +70,13 @@ void ParticleManager::drawAbove(sf::RenderTarget& aTarget)
             continue;
 
         _setupQuad(particle, quad, axises, size);
-        aTarget.draw(quad, 5, sf::TriangleStrip, states);
+        aTarget.draw(quad, 5, sf::TriangleStrip);
     }
 }
 void ParticleManager::drawBelow(sf::RenderTarget& aTarget)
 {
-    sf::RenderStates states(aTarget.getView().getTransform());
-    states.texture = &m_particleSheet;
+    // sf::RenderStates states(aTarget.getView().getTransform());
+    // states.texture = &m_particleSheet;
 
     sf::Vector2f axises, size;
     sf::Vertex quad[5];
@@ -87,6 +87,6 @@ void ParticleManager::drawBelow(sf::RenderTarget& aTarget)
             continue;
 
         _setupQuad(particle, quad, axises, size);
-        aTarget.draw(quad, 5, sf::TriangleStrip, states);
+        aTarget.draw(quad, 5, sf::TriangleStrip);
     }
 }

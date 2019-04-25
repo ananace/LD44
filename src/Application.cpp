@@ -69,6 +69,11 @@ void Application::setCurState(IState* aState)
     m_curState.reset(aState);
 }
 
+ParticleManager& Application::getParticleManager()
+{
+    return m_particles;
+}
+
 void Application::run()
 {
     time_point start = chrono_clock::now(),
