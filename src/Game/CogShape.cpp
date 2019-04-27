@@ -85,8 +85,9 @@ sf::Vector2f CogShape::getPoint(size_t aIndex) const
 
     float angle = aIndex * 2.f * Pi() / getPointCount() - Pi() / 2.f;
 
-    float x = cos(angle) * m_circleRadius * mult;
-    float y = sin(angle) * m_circleRadius * mult;
+    float multrad = m_circleRadius * mult;
+    float x = cos(angle) * multrad;
+    float y = sin(angle) * multrad;
 
-    return { x, y };
+    return { m_circleRadius + x, m_circleRadius + y };
 }
