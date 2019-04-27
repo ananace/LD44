@@ -1,4 +1,5 @@
 #include "Gun.hpp"
+#include "../../Application.hpp"
 
 #include <algorithm>
 
@@ -31,12 +32,19 @@ void Gun::fire()
 
     if (m_ammunition == 0)
     {
+        printf("Gun[%p]: Reload!\n", this);
+
         m_reload = 2.5f;
         m_ammunition = 8;
         return;
     }
 
-    printf("Pew!\n");
+    printf("Gun[%p]: Pew!\n", this);
+
+    Application::getApplication().getProjectileManager().addProjectile(
+        CollisionMask_ALL_Enemy,
+        5.f, 1.f, getGlobalPosition(), getGlobalDirection(), 50.f
+    );
 
     m_ammunition--;
     m_cooldown = 0.5f;

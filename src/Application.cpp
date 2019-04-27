@@ -69,9 +69,17 @@ void Application::setCurState(IState* aState)
     m_curState.reset(aState);
 }
 
+CollisionManager& Application::getCollisionManager()
+{
+    return m_collision;
+}
 ParticleManager& Application::getParticleManager()
 {
     return m_particles;
+}
+ProjectileManager& Application::getProjectileManager()
+{
+    return m_projectiles;
 }
 
 void Application::run()
@@ -119,6 +127,8 @@ void Application::run()
         }
 
         float f_dt = std::chrono::duration_cast<dt_seconds>(dt).count();
+        m_projectiles.update(f_dt);
+        m_collision.update(f_dt);
         m_curState->update(f_dt);
         m_particles.update(f_dt);
 
@@ -127,6 +137,8 @@ void Application::run()
         m_particles.drawBelow(m_window);
 
         m_curState->draw(m_window);
+
+        m_projectiles.draw(m_window);
 
         m_particles.drawAbove(m_window);
 

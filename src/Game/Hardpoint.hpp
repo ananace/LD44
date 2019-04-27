@@ -1,8 +1,10 @@
 #pragma once
 
-#include <SFML/System/Vector2.hpp>
+#include "HardpointOwner.hpp"
 
 #include <memory>
+
+namespace sf { class Transformable; }
 
 namespace Game
 {
@@ -12,7 +14,7 @@ class Attachement;
 class Hardpoint
 {
 public:
-    Hardpoint() = default;
+    Hardpoint();
     Hardpoint(const Hardpoint& copy);
     ~Hardpoint() = default;
 
@@ -25,6 +27,12 @@ public:
     void setAttachement(std::unique_ptr<Attachement>&& aAttachement);
     void removeAttachment();
 
+    sf::Vector2f getGlobalPosition() const;
+    float getGlobalDirection() const;
+
+    void setParent(const HardpointOwner* aTransformable);
+    const HardpointOwner* getParent() const;
+
     const sf::Vector2f& getPosition() const;
     void setPosition(const sf::Vector2f& aPos);
     float getDirection() const;
@@ -34,6 +42,8 @@ private:
     std::unique_ptr<Attachement> m_attachement;
     sf::Vector2f m_position;
     float m_direction;
+
+    const HardpointOwner* m_parent;
 };
 
 }

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <SFML/System/Vector2.hpp>
+
 namespace Game
 {
 
@@ -16,6 +18,9 @@ public:
     virtual bool isWeapon() const { return false; }
 
     virtual void update(float aDt) { }
+
+    virtual sf::Vector2f getGlobalPosition();
+    virtual float getGlobalDirection();
 
     Mount& asMount();
     const Mount& asMount() const;

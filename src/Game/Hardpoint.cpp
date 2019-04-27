@@ -1,12 +1,27 @@
 #include "Hardpoint.hpp"
 #include "Attachement.hpp"
+#include "../Util.hpp"
+
+#include <SFML/Graphics/Transformable.hpp>
+
+#include <cmath>
 
 using Game::Attachement;
 using Game::Hardpoint;
 
+Hardpoint::Hardpoint()
+    : m_attachement(nullptr)
+    , m_position()
+    , m_direction()
+    , m_parent(nullptr)
+{
+}
+
 Hardpoint::Hardpoint(const Hardpoint& copy)
-    : m_position(copy.m_position)
+    : m_attachement(nullptr)
+    , m_position(copy.m_position)
     , m_direction(copy.m_direction)
+    , m_parent(copy.m_parent)
 {
 }
 
@@ -35,15 +50,43 @@ const Attachement& Hardpoint::getAttachement() const
 }
 void Hardpoint::setAttachement(Attachement* aAttachement)
 {
+    if (m_attachement)
+        m_attachement->m_hardpoint = nullptr;
     m_attachement.reset(aAttachement);
+    m_attachement->m_hardpoint = this;
 }
 void Hardpoint::setAttachement(std::unique_ptr<Attachement>&& aAttachement)
 {
+    if (m_attachement)
+        m_attachement->m_hardpoint = nullptr;
     m_attachement = std::move(aAttachement);
+    m_attachement->m_hardpoint = this;
 }
 void Hardpoint::removeAttachment()
 {
     m_attachement.reset();
+}
+
+sf::Vector2f Hardpoint::getGlobalPosition() const
+{
+    if (m_parent)
+        return m_parent->getTransform().transformPoint(m_position);
+    return m_position;
+}
+float Hardpoint::getGlobalDirection() const
+{
+    if (m_parent)
+        return m_parent->getRotation() + m_direction;
+    return m_direction;
+}
+
+void Hardpoint::setParent(const HardpointOwner* aParent)
+{
+    m_parent = aParent;
+}
+const Game::HardpointOwner* Hardpoint::getParent() const
+{
+    return m_parent;
 }
 
 const sf::Vector2f& Hardpoint::getPosition() const

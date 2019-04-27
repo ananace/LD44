@@ -13,6 +13,19 @@ const Hardpoint* Attachement::getMountpoint() const
     return m_hardpoint;
 }
 
+sf::Vector2f Attachement::getGlobalPosition()
+{
+    if (m_hardpoint)
+        return m_hardpoint->getGlobalPosition();
+    return {};
+}
+float Attachement::getGlobalDirection()
+{
+    if (m_hardpoint)
+        return m_hardpoint->getGlobalDirection();
+    return 0.f;
+}
+
 Mount& Attachement::asMount()
 {
     return *static_cast<Mount*>(this);

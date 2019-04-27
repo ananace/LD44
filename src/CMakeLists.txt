@@ -16,9 +16,13 @@ endif ()
 
 set(headers
     Application.hpp
+    Collider.hpp
+    CollisionManager.hpp
     IState.hpp
     ParticleManager.hpp
     Particles.hpp
+    Projectile.hpp
+    ProjectileManager.hpp
     Util.hpp
 
     Game/Attachement.hpp
@@ -37,7 +41,11 @@ set(headers
 
 set(sources
     Application.cpp
+    Collider.cpp
+    CollisionManager.cpp
     ParticleManager.cpp
+    Projectile.cpp
+    ProjectileManager.cpp
     Util.cpp
 
     Game/Attachement.cpp

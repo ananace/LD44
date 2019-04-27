@@ -2,6 +2,7 @@
 
 #include "../Weapon.hpp"
 
+#include <array>
 #include <cstdint>
 
 namespace Game

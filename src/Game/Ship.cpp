@@ -17,8 +17,6 @@ Ship::Ship()
     hp.setDirection(0.f);
     addHardpoint(hp);
 
-    getHardpoint(0).setAttachement(new Game::Weapons::Gun());
-
     hp.setPosition({ -8.0f, -8.0f });
     hp.setDirection(-45.f);
     addHardpoint(hp);
@@ -26,8 +24,18 @@ Ship::Ship()
     hp.setPosition({ -8.0f, 8.0f });
     hp.setDirection(45.f);
     addHardpoint(hp);
+
+    getHardpoint(0).setAttachement(new Game::Weapons::Gun());
+    getHardpoint(1).setAttachement(new Game::Weapons::Gun());
+    getHardpoint(2).setAttachement(new Game::Weapons::Gun());
+
+    visitHardpoints([this](Hardpoint& hardpoint) { hardpoint.setParent(this); });
 }
 
+uint8_t Ship::getCollisionMask() const
+{
+    return CollisionMask_ALL;
+}
 float Ship::getRadius() const
 {
     return 16.f;
@@ -41,6 +49,11 @@ void Ship::update(float aDt)
 
         hp.getAttachement().update(aDt);
     });
+}
+
+bool Ship::onCollision(const Collider* aOther)
+{
+    return false;
 }
 
 void Ship::draw(sf::RenderTarget& aTarget, sf::RenderStates aStates) const
