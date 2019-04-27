@@ -21,7 +21,13 @@ set(headers
     Particles.hpp
     Util.hpp
 
+    Game/Attachement.hpp
     Game/CogShape.hpp
+    Game/Hardpoint.hpp
+    Game/Mount.hpp
+    Game/Player.hpp
+    Game/Ship.hpp
+    Game/Weapon.hpp
 
     States/DummyState.hpp
     States/GameState.hpp
@@ -32,7 +38,13 @@ set(sources
     ParticleManager.cpp
     Util.cpp
 
+    Game/Attachement.cpp
     Game/CogShape.cpp
+    Game/Hardpoint.cpp
+    Game/Mount.cpp
+    Game/Player.cpp
+    Game/Ship.cpp
+    Game/Weapon.cpp
 
     States/DummyState.cpp
     States/GameState.cpp

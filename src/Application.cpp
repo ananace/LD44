@@ -84,7 +84,7 @@ void Application::run()
 
     int realFPS = 0, frames = 0;
 
-    m_window.create(sf::VideoMode(800, 600), "LD44");
+    m_window.create(sf::VideoMode(800, 600), "LD44", sf::Style::Default, sf::ContextSettings(0, 0, 2));
     m_window.setFramerateLimit(150);
     m_uiView = m_window.getDefaultView();
 
