@@ -3,10 +3,14 @@
 #include "../Application.hpp"
 #include "../Particles.hpp"
 
+#include "../Game/CogShape.hpp"
+
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Window/Event.hpp>
 
 using States::DummyState;
+
+Game::CogShape cog(64.f);
 
 void DummyState::handleEvent(const sf::Event& aEvent)
 {
@@ -25,6 +29,13 @@ void DummyState::update(float aDt)
 }
 void DummyState::draw(sf::RenderTarget& aTarget)
 {
+    cog.setFillColor(sf::Color::Transparent);
+    cog.setOutlineColor(sf::Color::White);
+    cog.setOutlineThickness(1.f);
+
+    cog.setPosition(aTarget.getView().getCenter());
+
+    aTarget.draw(cog);
 }
 void DummyState::postDraw(sf::RenderTarget& aTarget)
 {

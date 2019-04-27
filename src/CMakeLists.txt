@@ -21,6 +21,8 @@ set(headers
     Particles.hpp
     Util.hpp
 
+    Game/CogShape.hpp
+
     States/DummyState.hpp
     States/GameState.hpp
 )
@@ -29,6 +31,8 @@ set(sources
     Application.cpp
     ParticleManager.cpp
     Util.cpp
+
+    Game/CogShape.cpp
 
     States/DummyState.cpp
     States/GameState.cpp
