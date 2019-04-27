@@ -23,6 +23,7 @@ public:
 
     virtual float getRadius() const;
 
+    void update(float aDt);
     void draw(sf::RenderTarget& aTarget, sf::RenderStates aStates) const override;
 
 protected:

@@ -29,6 +29,8 @@ set(headers
     Game/Ship.hpp
     Game/Weapon.hpp
 
+    Game/Weapons/Gun.hpp
+
     States/DummyState.hpp
     States/GameState.hpp
 )
@@ -45,6 +47,8 @@ set(sources
     Game/Player.cpp
     Game/Ship.cpp
     Game/Weapon.cpp
+
+    Game/Weapons/Gun.cpp
 
     States/DummyState.cpp
     States/GameState.cpp

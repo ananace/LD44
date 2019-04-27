@@ -1,6 +1,7 @@
 #include "Player.hpp"
 #include "CogShape.hpp"
 #include "Ship.hpp"
+#include "Weapon.hpp"
 
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
@@ -19,10 +20,15 @@ void Player::update(float aDt)
 {
     total += aDt;
 
+    ship.update(aDt);
+
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
         ship.rotate(-aDt * 30.f);
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
         ship.rotate(aDt * 30.f);
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+        ship.visitWeapons([](Weapon& w) { w.fire(); });
 }
 
 void Player::draw(sf::RenderTarget &target, sf::RenderStates states) const

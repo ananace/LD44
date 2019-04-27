@@ -15,6 +15,8 @@ public:
     virtual bool isMount() const { return false; }
     virtual bool isWeapon() const { return false; }
 
+    virtual void update(float aDt) { }
+
     Mount& asMount();
     const Mount& asMount() const;
     Weapon& asWeapon();
