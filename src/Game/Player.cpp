@@ -45,10 +45,10 @@ void Player::update(float aDt)
     float curDir = m_ship->getRotation() * Deg2Rad();
 
     float diff = Spinor::slerpAngle({curDir}, {targetDir}, aDt * 2);
+    // TODO: Respect ship max turn speed
     m_ship->setRotation(diff * Rad2Deg());
     // m_ship->rotate(std::min(m_ship->getTurningSpeed(), std::max(-m_ship->getTurningSpeed(), (diff - curDir) * Rad2Deg())));
 
-    // TODO: Mouse aiming instead, A/D for strafing
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
         m_ship->addImpulse(yVec * m_ship->getAcceleration() * aDt * -m_ship->getSideAccelMult());
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
