@@ -28,6 +28,7 @@ set(headers
 
     Game/Attachement.hpp
     Game/CogShape.hpp
+    Game/Enemy.hpp
     Game/Hardpoint.hpp
     Game/Mount.hpp
     Game/Player.hpp
@@ -55,6 +56,7 @@ set(sources
 
     Game/Attachement.cpp
     Game/CogShape.cpp
+    Game/Enemy.cpp
     Game/Hardpoint.cpp
     Game/Mount.cpp
     Game/Player.cpp

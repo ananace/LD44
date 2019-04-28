@@ -61,9 +61,21 @@ void Ship::setTargetPosition(const sf::Vector2f& aTarget)
 {
     m_target = aTarget;
 }
+void Ship::setVelocity(const sf::Vector2f& aVelocity)
+{
+    m_velocity = aVelocity;
+}
+void Ship::setVelocity(float aVelocity)
+{
+    m_velocity = sf::Vector2f(cos(getRotation() * Deg2Rad()), sin(getRotation() * Deg2Rad())) * aVelocity;
+}
 void Ship::addImpulse(const sf::Vector2f& aForce)
 {
     m_velocity += aForce;
+}
+void Ship::addImpulse(float aForce)
+{
+    m_velocity += sf::Vector2f(cos(getRotation() * Deg2Rad()), sin(getRotation() * Deg2Rad())) * aForce;
 }
 
 void Ship::update(float aDt)

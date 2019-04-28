@@ -43,7 +43,7 @@ void Gun::fire()
 
     Application::getApplication().getProjectileManager().addProjectile(
         CollisionMask_ALL_Enemy,
-        5.f, 1.f, getGlobalPosition(), getGlobalDirection(), 150.f
+        5.f, 1.f, getGlobalPosition(), getGlobalDirection(), 500.f
     );
 
     m_ammunition--;

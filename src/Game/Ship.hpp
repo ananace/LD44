@@ -39,7 +39,10 @@ public:
     float getRotation() const override { return sf::Transformable::getRotation(); }
 
     void setTargetPosition(const sf::Vector2f& aTarget);
+    void setVelocity(const sf::Vector2f& aVelocity);
+    void setVelocity(float aVelocity);
     void addImpulse(const sf::Vector2f& aForce);
+    void addImpulse(float aForce);
 
     void update(float aDt) override;
     void draw(sf::RenderTarget& aTarget, sf::RenderStates aStates) const override;

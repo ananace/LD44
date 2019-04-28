@@ -11,6 +11,8 @@ enum EnemyFlags : uint8_t
 {
     EnemyFlags_Aggressive = 1 << 0,
 
+    EnemyFlags_Offset = 1 << 1,
+
     EnemyFlags_NONE = 0,
     EnemyFlags_ALL = 0xFF
 };
@@ -29,10 +31,16 @@ public:
     Enemy(uint8_t aDifficulty);
 
     bool hasFlag(uint8_t aFlag) const;
-    void setFlag(uint8_t aFlag, bool aState);
+    void setFlag(uint8_t aFlag, bool aState = true);
 
     EnemyState getState() const;
     void setState(EnemyState aState);
+
+    void setTarget(const Ship* aTarget);
+    const Ship* getTarget() const;
+
+    Ship& getShip();
+    const Ship& getShip() const;
 
     void update(float aDt);
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
@@ -40,7 +48,7 @@ public:
 private:
     std::unique_ptr<Ship> m_ship;
 
-    Ship* m_targetShip;
+    const Ship* m_targetShip;
 
     uint8_t m_flags,
             m_difficulty;

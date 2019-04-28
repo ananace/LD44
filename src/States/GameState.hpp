@@ -1,10 +1,13 @@
 #pragma once
 
 #include "../IState.hpp"
+#include "../Game/Enemy.hpp"
 #include "../Game/Player.hpp"
 
 #include <SFML/Graphics/VertexArray.hpp>
 #include <SFML/Graphics/View.hpp>
+
+#include <deque>
 
 namespace Game
 {
@@ -25,7 +28,11 @@ public:
 private:
     void generateStarfields();
 
+    void startEncounter();
+
     Game::Player m_player;
+    std::deque<Game::Enemy> m_enemies;
+
     sf::VertexArray m_starfield1, m_starfield2;
     sf::View m_gameView;
 };
