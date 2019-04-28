@@ -37,10 +37,30 @@ void GameState::update(float aDt)
     for (auto& enemy : m_enemies)
         enemy.update(aDt);
 
-    for (auto it = m_enemies.cbegin(); it != m_enemies.cend();)
+    for (auto it = m_enemies.begin(); it != m_enemies.end();)
     {
         if (it->isDead())
-            m_enemies.erase(it++);
+        {
+            for (auto& possibleEscort : m_enemies)
+            {
+                if (&possibleEscort == &(*it))
+                    continue;
+
+                if (possibleEscort.getTarget() == &it->getShip())
+                {
+                    possibleEscort.setTarget(nullptr);
+                    possibleEscort.setState(EnemyState_Roaming);
+                }
+
+                if (it->getTarget() == &possibleEscort.getShip())
+                {
+                    it->setTarget(nullptr);
+                    it->setState(EnemyState_Roaming);
+                }
+            }
+
+            it = m_enemies.erase(it);
+        }
         else
             ++it;
     }
