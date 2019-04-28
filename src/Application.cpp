@@ -1,5 +1,6 @@
 #include "Application.hpp"
 #include "States/DummyState.hpp"
+#include "States/GameState.hpp"
 
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Window/Event.hpp>
@@ -19,7 +20,7 @@ Application::Application()
         throw std::runtime_error("Multiple Application instances");
     s_singleton = this;
 
-    setCurState(new States::DummyState());
+    setCurState(new Game::States::GameState());
 }
 
 Application::~Application()
@@ -130,13 +131,14 @@ void Application::run()
             }
         }
 
+        // Pre draw runs before updates, to allow the correct view to be in use
+        m_curState->preDraw(m_window);
+
         float f_dt = std::chrono::duration_cast<dt_seconds>(dt).count();
         m_projectiles.update(f_dt);
         m_collision.update(f_dt);
         m_curState->update(f_dt);
         m_particles.update(f_dt);
-
-        m_curState->preDraw(m_window);
 
         m_particles.drawBelow(m_window);
 

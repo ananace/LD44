@@ -25,3 +25,8 @@ sf::Vector2f operator*(const sf::Vector2f& aLhs, const sf::Vector2f& aRhs)
 {
     return { aLhs.x * aRhs.x, aLhs.y * aRhs.y };
 }
+
+sf::Vector2f constrain(const sf::FloatRect& aRect, const sf::Vector2f& aVec)
+{
+    return { std::min(aRect.left + aRect.width, std::max(aRect.left, aVec.x)), std::min(aRect.top + aRect.height, std::max(aRect.top, aVec.y)) };
+}

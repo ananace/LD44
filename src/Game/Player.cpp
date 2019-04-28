@@ -36,6 +36,15 @@ Player::Player()
     m_reticule.setOrigin(4.f, 4.f);
 }
 
+Ship& Player::getShip()
+{
+    return *m_ship;
+}
+const Ship& Player::getShip() const
+{
+    return *m_ship;
+}
+
 void Player::update(float aDt)
 {
     total += aDt;

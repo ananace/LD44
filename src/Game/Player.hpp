@@ -17,6 +17,9 @@ public:
     void update(float aDt);
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
+    Ship& getShip();
+    const Ship& getShip() const;
+
 private:
     std::unique_ptr<Ship> m_ship;
     CogShape m_indicator,

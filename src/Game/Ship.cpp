@@ -46,7 +46,7 @@ float Ship::getTurningSpeed() const
 }
 float Ship::getMaxSpeed() const
 {
-    return 50.f;
+    return 250.f;
 }
 
 const sf::Vector2f& Ship::getVelocity() const

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/System/Vector2.hpp>
+#include <SFML/Graphics/Rect.hpp>
 
 #include <cmath>
 
@@ -13,3 +14,5 @@ float getDirection(const sf::Vector2f& aFrom, const sf::Vector2f& aTo);
 float getVectorLength(const sf::Vector2f& aVec);
 sf::Vector2f setVectorLength(const sf::Vector2f& aVec, float aLength);
 sf::Vector2f operator*(const sf::Vector2f& aLhs, const sf::Vector2f& aRhs);
+
+sf::Vector2f constrain(const sf::FloatRect& aRect, const sf::Vector2f& aVec);
