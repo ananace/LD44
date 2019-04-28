@@ -1,7 +1,9 @@
 #include "GameState.hpp"
+#include "../Application.hpp"
 #include "../Util.hpp"
 
 #include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/Text.hpp>
 
 #include <random>
 #include <cstdio>
@@ -93,7 +95,15 @@ void GameState::draw(sf::RenderTarget& aTarget)
 }
 void GameState::postDraw(sf::RenderTarget& aTarget)
 {
+    char fpsCount[32];
+    snprintf(fpsCount, 32, "Health: %.2f", m_player.getHealth());
 
+    sf::Text stats(fpsCount, Application::getApplication().getDefaultFont(), 12u);
+    stats.setFillColor(sf::Color::White);
+    stats.setOutlineColor(sf::Color::Black);
+    stats.setOutlineThickness(1.5f);
+    stats.move(5, 12);
+    aTarget.draw(stats);
 }
 
 void GameState::generateStarfields()

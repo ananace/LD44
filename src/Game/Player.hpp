@@ -17,6 +17,8 @@ public:
     void update(float aDt);
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
+    float getHealth() const;
+
     Ship& getShip();
     const Ship& getShip() const;
 

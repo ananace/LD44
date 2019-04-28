@@ -42,7 +42,7 @@ void CollisionManager::addCollider(Collider* aCollider)
 }
 void CollisionManager::removeCollider(Collider* aCollider)
 {
-    auto it = std::find(m_colliders.cbegin(), m_colliders.cend(), aCollider);
-    if (it != m_colliders.cend())
+    auto it = std::find(m_colliders.begin(), m_colliders.end(), aCollider);
+    if (it != m_colliders.end())
         m_colliders.erase(it);
 }

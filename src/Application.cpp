@@ -165,4 +165,6 @@ void Application::run()
 
         end = chrono_clock::now();
     }
+
+    m_collision.clear();
 }

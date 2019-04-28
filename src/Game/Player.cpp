@@ -47,6 +47,11 @@ const Ship& Player::getShip() const
     return *m_ship;
 }
 
+float Player::getHealth() const
+{
+    return m_ship->getHealth();
+}
+
 void Player::update(float aDt)
 {
     total += aDt;
