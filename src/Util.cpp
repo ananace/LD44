@@ -1,5 +1,13 @@
 #include "Util.hpp"
 
+float getAngle(const sf::Vector2f& aVec)
+{
+    return atan2(aVec.y, aVec.x);
+}
+float getDirection(const sf::Vector2f& aFrom, const sf::Vector2f& aTo)
+{
+    return getAngle(aTo - aFrom);
+}
 float getVectorLength(const sf::Vector2f& aVec)
 {
     return sqrt(aVec.x * aVec.x + aVec.y * aVec.y);

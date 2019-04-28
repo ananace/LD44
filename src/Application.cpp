@@ -81,6 +81,10 @@ ProjectileManager& Application::getProjectileManager()
 {
     return m_projectiles;
 }
+sf::RenderWindow& Application::getRenderWindow()
+{
+    return m_window;
+}
 
 void Application::run()
 {

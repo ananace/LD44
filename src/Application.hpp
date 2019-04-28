@@ -30,6 +30,7 @@ public:
     CollisionManager& getCollisionManager();
     ParticleManager& getParticleManager();
     ProjectileManager& getProjectileManager();
+    sf::RenderWindow& getRenderWindow();
 
     void run();
 

@@ -27,6 +27,8 @@ public:
     uint8_t getCollisionMask() const override;
     virtual float getRadius() const override;
     virtual float getAcceleration() const;
+    virtual float getSideAccelMult() const;
+    virtual float getReverseAccelMult() const;
     virtual float getTurningSpeed() const;
     virtual float getMaxSpeed() const;
 

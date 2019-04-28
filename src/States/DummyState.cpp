@@ -20,6 +20,8 @@ void DummyState::handleEvent(const sf::Event& aEvent)
     if (aEvent.mouseButton.button != sf::Mouse::Left)
         return;
 
+    return;
+
     sf::Vector2f mPos(aEvent.mouseButton.x, aEvent.mouseButton.y);
     for (int i = 0; i < 100; ++i)
         getApplication().getParticleManager().emit(Particles::DustPuff(mPos));

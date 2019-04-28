@@ -23,6 +23,7 @@ set(headers
     Particles.hpp
     Projectile.hpp
     ProjectileManager.hpp
+    Spinor.hpp
     Util.hpp
 
     Game/Attachement.hpp
@@ -48,6 +49,7 @@ set(sources
     ParticleManager.cpp
     Projectile.cpp
     ProjectileManager.cpp
+    Spinor.cpp
     Util.cpp
 
     Game/Attachement.cpp

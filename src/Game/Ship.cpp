@@ -30,11 +30,19 @@ float Ship::getRadius() const
 }
 float Ship::getAcceleration() const
 {
-    return 25.f;
+    return 50.f;
+}
+float Ship::getSideAccelMult() const
+{
+    return 0.75f;
+}
+float Ship::getReverseAccelMult() const
+{
+    return 0.5f;
 }
 float Ship::getTurningSpeed() const
 {
-    return 90.f;
+    return 110.f;
 }
 float Ship::getMaxSpeed() const
 {
