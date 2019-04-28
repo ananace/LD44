@@ -1,6 +1,7 @@
 #include "Asteroids.hpp"
 
 #include "../Weapons/Gun.hpp"
+#include "../Weapons/MissileLauncher.hpp"
 
 #include <SFML/Graphics/RenderTarget.hpp>
 
@@ -41,8 +42,8 @@ Asteroids::Asteroids()
     addHardpoint(hp);
 
     getHardpoint(0).setAttachement(new Game::Weapons::Gun());
-    getHardpoint(1).setAttachement(new Game::Weapons::Gun());
-    getHardpoint(2).setAttachement(new Game::Weapons::Gun());
+    getHardpoint(1).setAttachement(new Game::Weapons::MissileLauncher());
+    getHardpoint(2).setAttachement(new Game::Weapons::MissileLauncher());
 
     m_centerCog.setOrigin(8.f, 8.f);
     m_centerCog.setFillColor(sf::Color::Transparent);

@@ -34,9 +34,11 @@ public:
 
     const sf::Transform& getTransform() const override { return sf::Transformable::getTransform(); }
     const sf::Vector2f& getPosition() const override { return sf::Transformable::getPosition(); }
+    const sf::Vector2f& getVelocity() const;
+    const sf::Vector2f& getTargetPosition() const override;
     float getRotation() const override { return sf::Transformable::getRotation(); }
 
-    const sf::Vector2f& getVelocity() const;
+    void setTargetPosition(const sf::Vector2f& aTarget);
     void addImpulse(const sf::Vector2f& aForce);
 
     void update(float aDt) override;
@@ -48,7 +50,8 @@ protected:
 private:
     virtual bool onCollision(const Collider* aOther) override;
 
-    sf::Vector2f m_velocity;
+    sf::Vector2f m_velocity,
+                 m_target;
 };
 
 }

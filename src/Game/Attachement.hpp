@@ -23,6 +23,7 @@ public:
     virtual void update(float aDt) { }
 
     virtual sf::Vector2f getGlobalPosition();
+    virtual const sf::Vector2f& getGlobalTargetPosition();
     virtual float getGlobalDirection();
 
     Mount& asMount();

@@ -13,12 +13,13 @@ ProjectileManager::ProjectileManager()
 {
 }
 
-void ProjectileManager::addProjectile(uint8_t aMask, float aLifetime, float aRadius, const sf::Vector2f& aPosition, float aDirection, float aVelocity)
+std::weak_ptr<Projectile> ProjectileManager::addProjectile(uint8_t aMask, float aLifetime, float aRadius, const sf::Vector2f& aPosition, float aDirection, float aVelocity)
 {
     if (m_projectiles.size() >= kMaxProjectiles)
-        return;
+        return {};
 
-    m_projectiles.emplace_back(aMask, aLifetime, aRadius, aPosition, aDirection * Deg2Rad(), aVelocity);
+    m_projectiles.emplace_back(std::make_shared<Projectile>(aMask, aLifetime, aRadius, aPosition, aDirection * Deg2Rad(), aVelocity));
+    return {m_projectiles.back()};
 }
 
 void ProjectileManager::update(float aDt)
@@ -27,17 +28,17 @@ void ProjectileManager::update(float aDt)
 
     for (auto& proj : m_projectiles)
     {
-        proj.Lifetime -= aDt;
-        if (proj.Lifetime <= 0)
+        proj->Lifetime -= aDt;
+        if (proj->Lifetime <= 0)
             continue;
 
-        proj.Position += sf::Vector2f(cos(proj.Direction) * proj.Velocity * aDt, sin(proj.Direction) * proj.Velocity * aDt);
+        proj->Position += sf::Vector2f(cos(proj->Direction) * proj->Velocity * aDt, sin(proj->Direction) * proj->Velocity * aDt);
     }
 
     // Only cleanup old projectiles occasionally
     if (m_iter % kCleanupInterval == 0)
     {
-        auto it = std::remove_if(m_projectiles.begin(), m_projectiles.end(), [](auto& proj) { return proj.Lifetime <= 0; });
+        auto it = std::remove_if(m_projectiles.begin(), m_projectiles.end(), [](auto& proj) { return proj->Lifetime <= 0; });
         if (it != m_projectiles.end())
             m_projectiles.erase(it, m_projectiles.end());
     }
@@ -52,9 +53,9 @@ void ProjectileManager::draw(sf::RenderTarget& aTarget)
 
     for (auto& proj : m_projectiles)
     {
-        bullet.setRadius(proj.Radius);
-        bullet.setOrigin(proj.Radius, proj.Radius);
-        bullet.setPosition(proj.Position);
+        bullet.setRadius(proj->Radius);
+        bullet.setOrigin(proj->Radius, proj->Radius);
+        bullet.setPosition(proj->Position);
 
         aTarget.draw(bullet);
     }

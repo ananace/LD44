@@ -3,14 +3,10 @@
 #include "../Application.hpp"
 #include "../Particles.hpp"
 
-#include "../Game/Player.hpp"
-
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Window/Event.hpp>
 
 using States::DummyState;
-
-Game::Player player;
 
 void DummyState::handleEvent(const sf::Event& aEvent)
 {
@@ -28,11 +24,11 @@ void DummyState::handleEvent(const sf::Event& aEvent)
 }
 void DummyState::update(float aDt)
 {
-    player.update(aDt);
+    m_player.update(aDt);
 }
 void DummyState::draw(sf::RenderTarget& aTarget)
 {
-    aTarget.draw(player);
+    aTarget.draw(m_player);
 }
 void DummyState::postDraw(sf::RenderTarget& aTarget)
 {

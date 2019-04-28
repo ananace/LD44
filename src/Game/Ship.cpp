@@ -53,6 +53,14 @@ const sf::Vector2f& Ship::getVelocity() const
 {
     return m_velocity;
 }
+const sf::Vector2f& Ship::getTargetPosition() const
+{
+    return m_target;
+}
+void Ship::setTargetPosition(const sf::Vector2f& aTarget)
+{
+    m_target = aTarget;
+}
 void Ship::addImpulse(const sf::Vector2f& aForce)
 {
     m_velocity += aForce;

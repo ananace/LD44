@@ -19,6 +19,13 @@ sf::Vector2f Attachement::getGlobalPosition()
         return m_hardpoint->getGlobalPosition();
     return {};
 }
+const sf::Vector2f& Attachement::getGlobalTargetPosition()
+{
+    static const sf::Vector2f emptyTarget;
+    if (m_hardpoint)
+        return m_hardpoint->getParent()->getTargetPosition();
+    return emptyTarget;
+}
 float Attachement::getGlobalDirection()
 {
     if (m_hardpoint)

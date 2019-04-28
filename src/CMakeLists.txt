@@ -37,6 +37,7 @@ set(headers
     Game/Ships/Asteroids.hpp
 
     Game/Weapons/Gun.hpp
+    Game/Weapons/MissileLauncher.hpp
 
     States/DummyState.hpp
     States/GameState.hpp
@@ -63,6 +64,7 @@ set(sources
     Game/Ships/Asteroids.cpp
 
     Game/Weapons/Gun.cpp
+    Game/Weapons/MissileLauncher.cpp
 
     States/DummyState.cpp
     States/GameState.cpp
