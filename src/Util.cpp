@@ -1,5 +1,18 @@
 #include "Util.hpp"
 
+float getVectorLength(const sf::Vector2f& aVec)
+{
+    return sqrt(aVec.x * aVec.x + aVec.y * aVec.y);
+}
+
+sf::Vector2f setVectorLength(const sf::Vector2f& aVec, float aLength)
+{
+    float curLen = getVectorLength(aVec);
+    if (aLength == 0 || curLen == 0)
+        return {};
+    return aVec * (aLength / curLen);
+}
+
 sf::Vector2f operator*(const sf::Vector2f& aLhs, const sf::Vector2f& aRhs)
 {
     return { aLhs.x * aRhs.x, aLhs.y * aRhs.y };

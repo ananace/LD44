@@ -13,6 +13,7 @@ Hardpoint::Hardpoint()
     : m_attachement(nullptr)
     , m_position()
     , m_direction()
+    , m_class(0)
     , m_parent(nullptr)
 {
 }
@@ -21,6 +22,7 @@ Hardpoint::Hardpoint(const Hardpoint& copy)
     : m_attachement(nullptr)
     , m_position(copy.m_position)
     , m_direction(copy.m_direction)
+    , m_class(copy.m_class)
     , m_parent(copy.m_parent)
 {
 }
@@ -104,4 +106,12 @@ float Hardpoint::getDirection() const
 void Hardpoint::setDirection(float aDir)
 {
     m_direction = aDir;
+}
+int8_t Hardpoint::getClass() const
+{
+    return m_class;
+}
+void Hardpoint::setClass(int8_t aClass)
+{
+    m_class = aClass;
 }

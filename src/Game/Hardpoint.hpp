@@ -37,11 +37,14 @@ public:
     void setPosition(const sf::Vector2f& aPos);
     float getDirection() const;
     void setDirection(float aDir);
+    int8_t getClass() const;
+    void setClass(int8_t aClass);
 
 private:
     std::unique_ptr<Attachement> m_attachement;
     sf::Vector2f m_position;
     float m_direction;
+    int8_t m_class;
 
     const HardpointOwner* m_parent;
 };

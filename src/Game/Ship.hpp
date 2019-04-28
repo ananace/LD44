@@ -22,21 +22,31 @@ public:
     Ship();
     ~Ship() = default;
 
-    virtual uint8_t getCollisionMask() const override;
+    void finalize();
+
+    uint8_t getCollisionMask() const override;
     virtual float getRadius() const override;
-    virtual const sf::Transform& getTransform() const override { return sf::Transformable::getTransform(); }
-    virtual const sf::Vector2f& getPosition() const override { return sf::Transformable::getPosition(); }
-    virtual float getRotation() const override { return sf::Transformable::getRotation(); }
+    virtual float getAcceleration() const;
+    virtual float getTurningSpeed() const;
+    virtual float getMaxSpeed() const;
+
+    const sf::Transform& getTransform() const override { return sf::Transformable::getTransform(); }
+    const sf::Vector2f& getPosition() const override { return sf::Transformable::getPosition(); }
+    float getRotation() const override { return sf::Transformable::getRotation(); }
+
+    const sf::Vector2f& getVelocity() const;
+    void addImpulse(const sf::Vector2f& aForce);
 
     void update(float aDt) override;
     void draw(sf::RenderTarget& aTarget, sf::RenderStates aStates) const override;
 
 protected:
-    virtual void drawShape(sf::RenderTarget& aTarget, sf::RenderStates aStates) const;
+    virtual void drawShape(sf::RenderTarget& aTarget, sf::RenderStates aStates) const = 0;
 
 private:
     virtual bool onCollision(const Collider* aOther) override;
 
+    sf::Vector2f m_velocity;
 };
 
 }

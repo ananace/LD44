@@ -2,6 +2,7 @@
 #include "Hardpoint.hpp"
 #include "Weapon.hpp"
 
+#include "../Util.hpp"
 #include "Weapons/Gun.hpp"
 
 #include <SFML/Graphics/CircleShape.hpp>
@@ -12,23 +13,10 @@ using Game::Ship;
 
 Ship::Ship()
 {
-    Hardpoint hp;
-    hp.setPosition({ 10.0f, 0.0f });
-    hp.setDirection(0.f);
-    addHardpoint(hp);
+}
 
-    hp.setPosition({ -8.0f, -8.0f });
-    hp.setDirection(-45.f);
-    addHardpoint(hp);
-
-    hp.setPosition({ -8.0f, 8.0f });
-    hp.setDirection(45.f);
-    addHardpoint(hp);
-
-    getHardpoint(0).setAttachement(new Game::Weapons::Gun());
-    getHardpoint(1).setAttachement(new Game::Weapons::Gun());
-    getHardpoint(2).setAttachement(new Game::Weapons::Gun());
-
+void Ship::finalize()
+{
     visitHardpoints([this](Hardpoint& hardpoint) { hardpoint.setParent(this); });
 }
 
@@ -40,9 +28,34 @@ float Ship::getRadius() const
 {
     return 16.f;
 }
+float Ship::getAcceleration() const
+{
+    return 25.f;
+}
+float Ship::getTurningSpeed() const
+{
+    return 90.f;
+}
+float Ship::getMaxSpeed() const
+{
+    return 50.f;
+}
+
+const sf::Vector2f& Ship::getVelocity() const
+{
+    return m_velocity;
+}
+void Ship::addImpulse(const sf::Vector2f& aForce)
+{
+    m_velocity += aForce;
+}
 
 void Ship::update(float aDt)
 {
+    if (getVectorLength(m_velocity) > getMaxSpeed())
+        m_velocity = setVectorLength(m_velocity, getMaxSpeed());
+    setPosition(getPosition() + m_velocity * aDt);
+
     visitHardpoints([aDt](Hardpoint& hp) {
         if (!hp.hasAttachement())
             return;
@@ -61,46 +74,35 @@ void Ship::draw(sf::RenderTarget& aTarget, sf::RenderStates aStates) const
     aStates.transform *= getTransform();
 
     drawShape(aTarget, aStates);
-}
-
-void Ship::drawShape(sf::RenderTarget& aTarget, sf::RenderStates aStates) const
-{
-    sf::ConvexShape shape(4);
-    shape.setPoint(0, { 0, -20 });
-    shape.setPoint(1, { 10, 10 });
-    shape.setPoint(2, { 0, 5 });
-    shape.setPoint(3, { -10, 10 });
-
-    shape.setFillColor(sf::Color::Black);
-    shape.setOutlineColor(sf::Color::White);
-    shape.setOutlineThickness(1.5f);
-
-    shape.rotate(90.f);
-
-    aTarget.draw(shape, aStates);
 
     // Debug hardcode rendering;
 
-    sf::CircleShape cs(5.f, 16);
-    cs.setOrigin(5.f, 5.f);
-    cs.setFillColor(sf::Color::Black);
-    cs.setOutlineColor(sf::Color(128,128,128));
+    sf::CircleShape cs(2.f, 16);
+    cs.setOrigin(2.f, 2.f);
+    cs.setFillColor(sf::Color::Transparent);
+    cs.setOutlineColor(sf::Color(128,128,128,128));
     cs.setOutlineThickness(0.75f);
 
     sf::VertexArray arr(sf::LineStrip, 5);
-    arr[0] = { { -5, 0 }, sf::Color::White };
-    arr[1] = { { 5, 0 }, sf::Color::White };
-    arr[2] = { { 2, -2 }, sf::Color::White };
-    arr[3] = { { 5, 0 }, sf::Color::White };
-    arr[4] = { { 2, 2 }, sf::Color::White };
+    arr[0] = { { -5, 0 }, sf::Color(255,255,255,96) };
+    arr[1] = { { 5, 0 }, sf::Color(255,255,255,96) };
+    arr[2] = { { 2, -2 }, sf::Color(255,255,255,96) };
+    arr[3] = { { 5, 0 }, sf::Color(255,255,255,96) };
+    arr[4] = { { 2, 2 }, sf::Color(255,255,255,96) };
 
     visitHardpoints([&](const Hardpoint& hp) {
+        uint8_t visualClass = abs(hp.getClass());
+        if (visualClass == 0)
+            visualClass = 1;
         aStates.transform.translate(hp.getPosition());
         aStates.transform.rotate(hp.getDirection());
+        aStates.transform.scale(visualClass, visualClass);
 
         aTarget.draw(cs, aStates);
-        aTarget.draw(arr, aStates);
+        if (hp.getClass() > 0)
+            aTarget.draw(arr, aStates);
 
+        aStates.transform.scale(1.f / visualClass, 1.f / visualClass);
         aStates.transform.rotate(-hp.getDirection());
         aStates.transform.translate(-hp.getPosition());
     });
