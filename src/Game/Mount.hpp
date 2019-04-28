@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Attachement.hpp"
+#include "Hardpoint.hpp"
 
 #include <functional>
 #include <deque>
@@ -8,7 +9,6 @@
 namespace Game
 {
 
-class Hardpoint;
 class Weapon;
 
 class Mount : public Attachement

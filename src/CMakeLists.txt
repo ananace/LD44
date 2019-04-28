@@ -122,6 +122,7 @@ target_include_directories(LD44
 
 target_link_libraries(LD44
     PRIVATE
+    sfml-graphics
     ${DEFAULT_LIBRARIES}
     ${SFML_LIBRARIES}
     ${SFML_DEPENDENCIES}

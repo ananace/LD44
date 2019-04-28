@@ -103,7 +103,7 @@ float Hardpoint::getGlobalDirection() const
     return m_direction;
 }
 
-void Hardpoint::setParent(const HardpointOwner* aParent)
+void Hardpoint::setParent(const Game::HardpointOwner* aParent)
 {
     m_parent = aParent;
 }

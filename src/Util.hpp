@@ -5,7 +5,11 @@
 
 #include <cmath>
 
+#ifdef _WIN32
+constexpr float Pi() { return 3.14159f; }
+#else
 constexpr float Pi() { return std::atan(1) * 4; }
+#endif
 constexpr float Deg2Rad() { return Pi() / 180.f; }
 constexpr float Rad2Deg() { return 180.f / Pi(); }
 

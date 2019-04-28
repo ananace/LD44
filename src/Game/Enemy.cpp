@@ -39,7 +39,7 @@ Game::EnemyState Enemy::getState() const
 {
     return m_state;
 }
-void Enemy::setState(EnemyState aState)
+void Enemy::setState(Game::EnemyState aState)
 {
     m_state = aState;
 }

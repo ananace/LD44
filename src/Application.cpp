@@ -43,8 +43,10 @@ sf::Font& Application::getDefaultFont() const
         "/usr/share/fonts/corefonts/andalemo.ttf",
         "/usr/share/fonts/dejavu/DejaVuSansMono.ttf",
         "/usr/share/fonts/liberation-fonts/LiberationMono-Regular.ttf"
-#elif SFML_SYSTEM_WINDOWS
-        "C:\\Windows\\Fonts\\AndaleMono.ttf",
+#elif defined(SFML_SYSTEM_WINDOWS)
+        "C:\\Windows\\Fonts\\consola.ttf",
+        "C:\\Windows\\Fonts\\segoeui.ttf",
+        "C:\\Windows\\Fonts\\cour.ttf"
 #endif
     };
 
