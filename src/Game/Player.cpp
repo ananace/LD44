@@ -56,6 +56,9 @@ void Player::update(float aDt)
 {
     total += aDt;
 
+    if (getHealth() <= 0)
+        Application::getApplication().getRenderWindow().close();
+
     float ang = m_ship->getRotation();
     sf::Vector2f xVec(cos(ang * Deg2Rad()), sin(ang * Deg2Rad()));
     sf::Vector2f yVec(cos((ang + 90) * Deg2Rad()), sin((ang + 90) * Deg2Rad()));

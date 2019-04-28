@@ -102,7 +102,7 @@ void GameState::postDraw(sf::RenderTarget& aTarget)
     stats.setFillColor(sf::Color::White);
     stats.setOutlineColor(sf::Color::Black);
     stats.setOutlineThickness(1.5f);
-    stats.move(5, 12);
+    stats.move(5, 16);
     aTarget.draw(stats);
 }
 
