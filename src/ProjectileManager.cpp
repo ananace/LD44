@@ -1,4 +1,5 @@
 #include "ProjectileManager.hpp"
+#include "Application.hpp"
 #include "Util.hpp"
 
 #include <SFML/Graphics/CircleShape.hpp>
@@ -19,6 +20,7 @@ std::weak_ptr<Projectile> ProjectileManager::addProjectile(uint8_t aMask, float 
         return {};
 
     m_projectiles.emplace_back(std::make_shared<Projectile>(aMask, aLifetime, aRadius, aPosition, aDirection * Deg2Rad(), aVelocity));
+    Application::getApplication().getCollisionManager().addCollider(m_projectiles.back().get());
     return {m_projectiles.back()};
 }
 
@@ -30,7 +32,10 @@ void ProjectileManager::update(float aDt)
     {
         proj->Lifetime -= aDt;
         if (proj->Lifetime <= 0)
+        {
+            Application::getApplication().getCollisionManager().removeCollider(proj.get());
             continue;
+        }
 
         proj->Position += sf::Vector2f(cos(proj->Direction) * proj->Velocity * aDt, sin(proj->Direction) * proj->Velocity * aDt);
     }

@@ -1,4 +1,5 @@
 #include "Gun.hpp"
+#include "../Hardpoint.hpp"
 #include "../../Application.hpp"
 
 #include <algorithm>
@@ -42,7 +43,7 @@ void Gun::fire()
     printf("Gun[%p]: Pew!\n", this);
 
     Application::getApplication().getProjectileManager().addProjectile(
-        CollisionMask_ALL_Enemy,
+        getMountpoint()->getTargetCollisionMask(),
         5.f, 1.f, getGlobalPosition(), getGlobalDirection(), 500.f
     );
 

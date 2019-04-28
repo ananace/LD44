@@ -1,5 +1,6 @@
 #include "Hardpoint.hpp"
 #include "Attachement.hpp"
+#include "../Collider.hpp"
 #include "../Util.hpp"
 
 #include <SFML/Graphics/Transformable.hpp>
@@ -73,6 +74,20 @@ Attachement* Hardpoint::releaseAttachement()
 void Hardpoint::removeAttachment()
 {
     m_attachement.reset();
+}
+
+uint8_t Hardpoint::getCollisionMask() const
+{
+    if (m_parent)
+        return m_parent->getCollisionMask();
+    return CollisionMask_NONE;
+}
+
+uint8_t Hardpoint::getTargetCollisionMask() const
+{
+    if (m_parent)
+        return m_parent->getTargetCollisionMask();
+    return CollisionMask_NONE;
 }
 
 sf::Vector2f Hardpoint::getGlobalPosition() const

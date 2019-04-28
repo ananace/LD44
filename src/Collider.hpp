@@ -24,8 +24,6 @@ public:
     virtual ~Collider();
 
     virtual uint8_t getCollisionMask() const = 0;
-    //virtual void setCollisionMask(uint8_t aMask);
-
     virtual const sf::Vector2f& getPosition() const = 0;
     virtual float getRadius() const = 0;
 

@@ -1,4 +1,5 @@
 #include "MissileLauncher.hpp"
+#include "../Hardpoint.hpp"
 #include "../Mount.hpp"
 #include "../../Application.hpp"
 #include "../../Spinor.hpp"
@@ -42,7 +43,7 @@ void MissileLauncher::fire()
         return;
 
     m_missile = Application::getApplication().getProjectileManager().addProjectile(
-        CollisionMask_ALL_Enemy,
+        getMountpoint()->getTargetCollisionMask(),
         5.f, 1.f, getGlobalPosition(), getGlobalDirection(), 250.f
     );
 

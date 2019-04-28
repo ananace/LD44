@@ -1,4 +1,5 @@
 #include "Enemy.hpp"
+#include "Weapon.hpp"
 
 #include "../Util.hpp"
 
@@ -13,6 +14,13 @@ Enemy::Enemy(uint8_t aDifficulty)
     , m_state(EnemyState_Idle)
 {
     m_ship = std::make_unique<Ships::Asteroids>();
+    m_ship->setCollisionMask(CollisionMask_ALL_Enemy);
+    m_ship->setTargetCollisionMask(CollisionMask_EnemyBullet);
+}
+
+bool Enemy::isDead() const
+{
+    return m_ship->getHealth() <= 0;
 }
 
 bool Enemy::hasFlag(uint8_t aFlag) const
@@ -66,7 +74,7 @@ void Enemy::update(float aDt)
         {
             sf::Vector2f target = m_targetShip->getPosition();
             if (m_state == EnemyState_Escorting)
-                target -= sf::Vector2f(cos(m_targetShip->getRotation() * Deg2Rad() + (Pi() / 2) * hasFlag(EnemyFlags_Offset) ? 1 : -1), sin(m_targetShip->getRotation() * Deg2Rad() + (Pi() / 2) * hasFlag(EnemyFlags_Offset) ? 1 : -1)) * m_targetShip->getRadius() * 1.f;
+                target -= sf::Vector2f(cos(m_targetShip->getRotation() * Deg2Rad() + (Pi() / 2) * (hasFlag(EnemyFlags_Offset) ? 1 : -1)), sin(m_targetShip->getRotation() * Deg2Rad() + (Pi() / 2) * (hasFlag(EnemyFlags_Offset) ? 1 : -1))) * m_targetShip->getRadius() * 1.f;
             else
             {
                 float direction = getDirection(m_ship->getPosition(), target);
@@ -79,6 +87,9 @@ void Enemy::update(float aDt)
             // m_ship->setPosition(target);
             m_ship->setRotation(targetDir * Rad2Deg());
             m_ship->setVelocity(std::min(targetDist - (m_targetShip->getRadius() * 4.f), m_ship->getMaxSpeed() * 0.75f));
+
+            if (m_state == EnemyState_Attacking && targetDist < 500)
+                m_ship->visitWeapons([](Weapon& w) { w.fire(); });
         }
     }
 

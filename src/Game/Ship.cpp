@@ -2,6 +2,7 @@
 #include "Hardpoint.hpp"
 #include "Weapon.hpp"
 
+#include "../Application.hpp"
 #include "../Util.hpp"
 #include "Weapons/Gun.hpp"
 
@@ -12,7 +13,16 @@
 using Game::Ship;
 
 Ship::Ship()
+    : m_collMask(CollisionMask_ALL)
+    , m_targetCollMask(CollisionMask_NONE)
+    , m_health(3)
 {
+    Application::getApplication().getCollisionManager().addCollider(this);
+}
+
+Ship::~Ship()
+{
+    Application::getApplication().getCollisionManager().removeCollider(this);
 }
 
 void Ship::finalize()
@@ -22,7 +32,19 @@ void Ship::finalize()
 
 uint8_t Ship::getCollisionMask() const
 {
-    return CollisionMask_ALL;
+    return m_collMask;
+}
+uint8_t Ship::getTargetCollisionMask() const
+{
+    return m_targetCollMask;
+}
+void Ship::setCollisionMask(uint8_t aCollMask)
+{
+    m_collMask = aCollMask;
+}
+void Ship::setTargetCollisionMask(uint8_t aCollMask)
+{
+    m_targetCollMask = aCollMask;
 }
 float Ship::getRadius() const
 {
@@ -47,6 +69,10 @@ float Ship::getTurningSpeed() const
 float Ship::getMaxSpeed() const
 {
     return 250.f;
+}
+float Ship::getHealth() const
+{
+    return m_health;
 }
 
 const sf::Vector2f& Ship::getVelocity() const
@@ -94,6 +120,10 @@ void Ship::update(float aDt)
 
 bool Ship::onCollision(const Collider* aOther)
 {
+    printf("Ship[%p]: Collision\n", this);
+
+    m_health -= 1.f;
+
     return false;
 }
 

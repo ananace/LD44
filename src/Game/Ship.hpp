@@ -20,17 +20,22 @@ class Ship : public Mount, public HardpointOwner, public sf::Drawable, public sf
 {
 public:
     Ship();
-    ~Ship() = default;
+    ~Ship();
 
     void finalize();
 
     uint8_t getCollisionMask() const override;
+    uint8_t getTargetCollisionMask() const override;
+    void setCollisionMask(uint8_t);
+    void setTargetCollisionMask(uint8_t);
     virtual float getRadius() const override;
     virtual float getAcceleration() const;
     virtual float getSideAccelMult() const;
     virtual float getReverseAccelMult() const;
     virtual float getTurningSpeed() const;
     virtual float getMaxSpeed() const;
+
+    float getHealth() const;
 
     const sf::Transform& getTransform() const override { return sf::Transformable::getTransform(); }
     const sf::Vector2f& getPosition() const override { return sf::Transformable::getPosition(); }
@@ -53,8 +58,10 @@ protected:
 private:
     virtual bool onCollision(const Collider* aOther) override;
 
+    uint8_t m_collMask, m_targetCollMask;
     sf::Vector2f m_velocity,
                  m_target;
+    float m_health;
 };
 
 }

@@ -1,5 +1,6 @@
 #include "CollisionManager.hpp"
 #include "Collider.hpp"
+#include "Util.hpp"
 
 #include <algorithm>
 
@@ -12,7 +13,7 @@ void CollisionManager::update(float aDt)
         for (auto it2 = it + 1; it2 != m_colliders.end(); ++it2)
         {
             uint8_t bCollMask = (*it2)->getCollisionMask();
-            if ((aCollMask & bCollMask) == 0)
+            if ((aCollMask & bCollMask) != 0)
                 continue;
 
             auto& aPos = (*it)->getPosition();
@@ -21,8 +22,8 @@ void CollisionManager::update(float aDt)
             auto bRad = (*it2)->getRadius();
 
             auto diff = bPos - aPos;
-            auto dist = diff.x * diff.x + diff.y * diff.y;
-            if (dist < aRad * aRad + bRad * bRad)
+            auto dist = getVectorLength(diff);
+            if (dist <= sqrt(aRad * aRad + bRad * bRad))
             {
                 (*it)->onCollision(*it2);
                 (*it2)->onCollision(*it);

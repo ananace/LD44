@@ -28,6 +28,9 @@ public:
     Attachement* releaseAttachement();
     void removeAttachment();
 
+    uint8_t getCollisionMask() const;
+    uint8_t getTargetCollisionMask() const;
+
     sf::Vector2f getGlobalPosition() const;
     float getGlobalDirection() const;
 

@@ -8,6 +8,7 @@
 
 using Game::States::GameState;
 
+float encounterTimer = 0;
 enum
 {
     kWorldSize = 6000
@@ -25,9 +26,24 @@ void GameState::handleEvent(const sf::Event& aEvent)
 }
 void GameState::update(float aDt)
 {
+    encounterTimer += aDt;
+    if (encounterTimer >= 15)
+    {
+        startEncounter();
+        encounterTimer = 0;
+    }
+
     m_player.update(aDt);
     for (auto& enemy : m_enemies)
         enemy.update(aDt);
+
+    for (auto it = m_enemies.cbegin(); it != m_enemies.cend();)
+    {
+        if (it->isDead())
+            m_enemies.erase(it++);
+        else
+            ++it;
+    }
 
     auto hvsize = m_gameView.getSize() / 4.f;
     auto lsize = sf::Vector2f(kWorldSize, kWorldSize);
@@ -80,7 +96,7 @@ void GameState::startEncounter()
 {
     std::random_device dev;
     std::uniform_real_distribution<float> position(kWorldSize / -2, kWorldSize / 2);
-    std::uniform_int_distribution<int> encounter(0, 1);
+    std::uniform_int_distribution<int> encounter(0, 5);
 
     sf::Vector2f encounterPosition(position(dev), position(dev));
     // auto& encounterPosition = m_player.getShip().getPosition();
@@ -101,6 +117,10 @@ void GameState::startEncounter()
         }; break;
 
     case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
         { // Triple ship convoy
             printf("Game: Spawning encounter %i\n", 1);
             m_enemies.emplace_back(encounter(dev) + 1);

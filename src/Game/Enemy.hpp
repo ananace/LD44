@@ -30,6 +30,8 @@ class Enemy : public sf::Drawable
 public:
     Enemy(uint8_t aDifficulty);
 
+    bool isDead() const;
+
     bool hasFlag(uint8_t aFlag) const;
     void setFlag(uint8_t aFlag, bool aState = true);
 

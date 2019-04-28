@@ -1,5 +1,7 @@
 #include "Projectile.hpp"
 
+#include <cstdio>
+
 Projectile::Projectile()
     : Position()
     , Lifetime(0.f)
@@ -33,6 +35,7 @@ float Projectile::getRadius() const
 }
 bool Projectile::onCollision(const Collider* aOther)
 {
+    printf("Projectile[%p]: Collision\n", this);
     Lifetime = 0;
 
     return false;

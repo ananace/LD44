@@ -24,6 +24,8 @@ Player::Player()
     , m_reticule(4.f, 1.5f, 8u)
 {
     m_ship = std::make_unique<Ships::Asteroids>();
+    m_ship->setCollisionMask(CollisionMask_ALL_Player);
+    m_ship->setTargetCollisionMask(CollisionMask_PlayerBullet);
     m_indicator = CogShape(m_ship->getRadius());
 
     m_indicator.setOutlineColor(sf::Color(73, 239, 87, 96));
