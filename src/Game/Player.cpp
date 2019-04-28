@@ -16,47 +16,47 @@ using Game::Player;
 using Game::Ship;
 
 float total = 0;
-CogShape cog(14.f);
-std::unique_ptr<Ship> ship;
 
 Player::Player()
+    : m_indicator(1.f)
+    , m_reticule(8.f)
 {
-    ship = std::make_unique<Ships::Asteroids>();
-    cog = CogShape(ship->getRadius());
-    cog.setFillColor(sf::Color(22, 140, 32, 96 + std::sin(total*4) * 32));
-    cog.setOutlineColor(sf::Color(73, 239, 87));
-    cog.setOutlineThickness(1.f);
-    cog.setOrigin(cog.getRadius(), cog.getRadius());
+    m_ship = std::make_unique<Ships::Asteroids>();
+    m_indicator = CogShape(m_ship->getRadius());
+    m_indicator.setFillColor(sf::Color(22, 140, 32, 96 + std::sin(total*4) * 32));
+    m_indicator.setOutlineColor(sf::Color(73, 239, 87));
+    m_indicator.setOutlineThickness(1.f);
+    m_indicator.setOrigin(m_indicator.getRadius(), m_indicator.getRadius());
 }
 
 void Player::update(float aDt)
 {
     total += aDt;
 
-    ship->update(aDt);
+    m_ship->update(aDt);
 
-    float ang = ship->getRotation();
+    float ang = m_ship->getRotation();
     sf::Vector2f xVec(cos(ang * Deg2Rad()), sin(ang * Deg2Rad()));
     sf::Vector2f yVec(cos((ang + 90) * Deg2Rad()), sin((ang + 90) * Deg2Rad()));
 
     // TODO: Mouse aiming instead, A/D for strafing
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-        ship->rotate(-aDt * ship->getTurningSpeed());
+        m_ship->rotate(-aDt * m_ship->getTurningSpeed());
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-        ship->rotate(aDt * ship->getTurningSpeed());
+        m_ship->rotate(aDt * m_ship->getTurningSpeed());
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-        ship->addImpulse(xVec * ship->getAcceleration() * aDt);
+        m_ship->addImpulse(xVec * m_ship->getAcceleration() * aDt);
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-        ship->visitWeapons([](Weapon& w) { w.fire(); });
+        m_ship->visitWeapons([](Weapon& w) { w.fire(); });
+
+    m_indicator.setPosition(m_ship->getPosition());
+    m_indicator.setRotation(total * 45.f);
 }
 
 void Player::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
-    cog.setPosition(ship->getPosition());
-    cog.setRotation(total * 45.f);
-
-    target.draw(cog, states);
-    target.draw(*ship, states);
+    target.draw(m_indicator, states);
+    target.draw(*m_ship, states);
 }
