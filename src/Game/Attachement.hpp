@@ -2,6 +2,8 @@
 
 #include <SFML/System/Vector2.hpp>
 
+#include <cstdint>
+
 namespace Game
 {
 
@@ -16,6 +18,7 @@ public:
 
     virtual bool isMount() const { return false; }
     virtual bool isWeapon() const { return false; }
+    virtual int8_t getClass() const { return 1; }
 
     virtual void update(float aDt) { }
 

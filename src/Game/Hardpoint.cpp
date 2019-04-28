@@ -64,6 +64,12 @@ void Hardpoint::setAttachement(std::unique_ptr<Attachement>&& aAttachement)
     m_attachement = std::move(aAttachement);
     m_attachement->m_hardpoint = this;
 }
+Attachement* Hardpoint::releaseAttachement()
+{
+    if (m_attachement)
+        m_attachement->m_hardpoint = nullptr;
+    return m_attachement.release();
+}
 void Hardpoint::removeAttachment()
 {
     m_attachement.reset();

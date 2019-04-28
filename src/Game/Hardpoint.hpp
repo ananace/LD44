@@ -25,6 +25,7 @@ public:
     const Attachement& getAttachement() const;
     void setAttachement(Attachement* aAttachement);
     void setAttachement(std::unique_ptr<Attachement>&& aAttachement);
+    Attachement* releaseAttachement();
     void removeAttachment();
 
     sf::Vector2f getGlobalPosition() const;
